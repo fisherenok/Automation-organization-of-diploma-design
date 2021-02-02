@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Protocol from './Protocol';
+import { HashRouter } from 'react-router-dom';
 import Commission from './Commission';
 import SignIn from './SignIn'
 import {
@@ -168,17 +169,17 @@ const App = () => {
             <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
               <MenuIcon onClick={() => window.location.reload()} />
             </IconButton>
-            {isLogged && <Link className="Link" to="/students">Students</Link>}
+            {isLogged && (<><Link className="Link" to="/students">Students</Link><HashRouter basename="/students"/></>)}
 
-            {isLogged && <Link className="Link" to="/commission">Commission</Link>}
+            {isLogged && (<><Link className="Link" to="/commission">Commission</Link><HashRouter basename="/commission"/></>)}
 
-            {isLogged && <Link className="Link" to="/protectedList">Protected</Link>}
+            {isLogged && (<><Link className="Link" to="/protectedList">Protected</Link><HashRouter basename="/protectedList"/></>)}
 
-            {!isLogged && <Link className="SignIn Link" to="/">SignIn</Link>}
+            {!isLogged && (<><Link className="SignIn Link" to="/">SignIn</Link><HashRouter basename="/"/></>)}
 
-            {!isLogged && <Link className="SignIn Link" to="/signUp">SignUp</Link>}
+            {!isLogged && (<><Link className="SignIn Link" to="/signUp">SignUp</Link><HashRouter basename="/signUp"/></>)}
 
-            {isLogged && <Link onClick={handleLogout} className="Logout Link" to="/">Logout</Link>}
+            {isLogged && (<><Link onClick={handleLogout} className="Logout Link" to="/">Logout</Link><HashRouter basename="/"/></>)}
           </Toolbar>
         </AppBar>
 
