@@ -184,37 +184,37 @@ const App = () => {
 
         <Switch>
           {isLogged && (
-            <Route path="/students">
+            <Route exact path="/students">
               <Students initials={initials} createData={createData} handleToProtocol={handleToProtocol} />
             </Route>
           )}
 
           {!isLogged && (
-            <Route path="/signUp">
+            <Route exact path="/signUp">
               <SignUp />
             </Route>
           )}
 
           {isLogged && (
-            <Route path="/commission">
+            <Route exact path="/commission">
               <Commission state={state} handleChange={handleChange} />
             </Route>
           )}
 
           {isLogged && (
-            <Route path="/protocol">
+            <Route exact path="/protocol">
               <Protocol startTime={startTime} state={state} handleChange={handleChange} initials={initials} />
             </Route>
           )}
 
           {isLogged && (
-            <Route path="/protectedList">
+            <Route exact path="/protectedList">
               <ProtectedList initials={initials} state={state} createData={createData} handleToProtocol={handleToProtocol} />
             </Route>
           )}
 
           {!isLogged && (
-          <Route path="/">
+          <Route exact path="/">
             <SignIn />
           </Route>
           )}
