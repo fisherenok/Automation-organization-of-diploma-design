@@ -4,7 +4,7 @@ import { HashRouter } from 'react-router-dom';
 import Commission from './Commission';
 import SignIn from './SignIn'
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Link
