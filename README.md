@@ -1,3 +1,7 @@
+# DEMO
+
+click: https://fisherenok.github.io/Automation-organization-of-diploma-design/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
