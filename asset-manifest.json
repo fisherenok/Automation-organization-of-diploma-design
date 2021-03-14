@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Automation-organization-of-diploma-design/static/css/main.acb2a8f9.chunk.css",
-    "main.js": "/Automation-organization-of-diploma-design/static/js/main.a8e36ed1.chunk.js",
-    "main.js.map": "/Automation-organization-of-diploma-design/static/js/main.a8e36ed1.chunk.js.map",
+    "main.js": "/Automation-organization-of-diploma-design/static/js/main.392c0ba8.chunk.js",
+    "main.js.map": "/Automation-organization-of-diploma-design/static/js/main.392c0ba8.chunk.js.map",
     "runtime-main.js": "/Automation-organization-of-diploma-design/static/js/runtime-main.bda89e51.js",
     "runtime-main.js.map": "/Automation-organization-of-diploma-design/static/js/runtime-main.bda89e51.js.map",
     "static/js/2.aca340b3.chunk.js": "/Automation-organization-of-diploma-design/static/js/2.aca340b3.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.bda89e51.js",
     "static/js/2.aca340b3.chunk.js",
     "static/css/main.acb2a8f9.chunk.css",
-    "static/js/main.a8e36ed1.chunk.js"
+    "static/js/main.392c0ba8.chunk.js"
   ]
 }
