@@ -12,7 +12,6 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -70,11 +69,10 @@ const SignIn = () => {
 
   const handleSignIn = () => {
     const password = localStorage.getItem(`${data.email}`);
-    const history = useHistory();
     console.log(password)
     if (password === data.password) {
       localStorage.setItem('isLogged', 'true');
-      history.push('/students');
+      window.location.href = '/students'
     }
   };
 
