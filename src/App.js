@@ -3,7 +3,7 @@ import Protocol from './Protocol';
 import Commission from './Commission';
 import SignIn from './SignIn'
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Switch,
   Route,
   Link
@@ -161,7 +161,7 @@ const App = () => {
   };
 
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       <div className="App">
         <AppBar position="static">
           <Toolbar>
@@ -190,31 +190,31 @@ const App = () => {
           )}
 
           {!isLogged && (
-            <Route exact path="/signUp">
+            <Route path="/signUp">
               <SignUp />
             </Route>
           )}
 
           {isLogged && (
-            <Route exact path="/commission">
+            <Route path="/commission">
               <Commission state={state} handleChange={handleChange} />
             </Route>
           )}
 
           {isLogged && (
-            <Route exact path="/protocol">
+            <Route path="/protocol">
               <Protocol startTime={startTime} state={state} handleChange={handleChange} initials={initials} />
             </Route>
           )}
 
           {isLogged && (
-            <Route exact path="/protectedList">
+            <Route path="/protectedList">
               <ProtectedList initials={initials} state={state} createData={createData} handleToProtocol={handleToProtocol} />
             </Route>
           )}
 
           {!isLogged && (
-          <Route exact path="/">
+          <Route path="/">
             <SignIn />
           </Route>
           )}
