@@ -42,7 +42,7 @@ const Students = (props) => {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [documentInputName, setDocumentInputName] = useState('');
   const [documentValue, setDocumentValue] = useState('');
-  const fileName = `Upload file, count of students: ${arrProtection.length}`;
+  const fileName = `Upload file, count of students: ${arrProtection?.length}`;
   const colorButtonUpload = documentInputName ? 'primary' :  'default';
   const dd = ('0' + selectedDate.getDate()).slice(-2);
   const mm = ('0' + (selectedDate.getMonth() + 1)).slice(-2);
@@ -124,7 +124,7 @@ const Students = (props) => {
         </Grid>
       </div>
       <div className='ProtectedTable'>
-        {arrProtection.length && (
+        {arrProtection?.length && (
           <TableContainer key={arrProtection} style={{ marginTop: '-145px' }} component={Paper}>
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
