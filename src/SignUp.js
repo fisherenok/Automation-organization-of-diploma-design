@@ -1,176 +1,153 @@
 import React, {useState} from 'react';
-import Button from "@material-ui/core/Button";
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import AddIcon from '@material-ui/icons/Add';
-import ClearIcon from '@material-ui/icons/Clear';
-import TextField from "@material-ui/core/TextField/TextField";
-import Grid from "@material-ui/core/Grid";
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-import GenerateDocumentProtected from "./GenerateDocumentProtected";
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: '#3f51b5',
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
-
-const Students = (props) => {
-  const { initials, createData, handleToProtocol, state, state: { num } } = props;
-  const protectionStudents = JSON.parse(localStorage.getItem('protection'));
-  const [arrProtection, setArrProtection] = useState(protectionStudents);
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const [documentInputName, setDocumentInputName] = useState('');
-  const [documentValue, setDocumentValue] = useState('');
-  const fileName = `Upload file, count of students: ${arrProtection?.length}`;
-  const colorButtonUpload = documentInputName ? 'primary' :  'default';
-  const dd = ('0' + selectedDate.getDate()).slice(-2);
-  const mm = ('0' + (selectedDate.getMonth() + 1)).slice(-2);
-  const date = `${dd}.${mm}.${selectedDate.getFullYear()}`;
-
-  const handleDocumentValue = (e) => {
-    setDocumentInputName(`${e.target.value.replace(/^.*[\\\/]/, '')}`);
-    setDocumentValue(e.target);
-  };
-
-  const handleGenerateDocument = () => {
-    const allStudents =  arrProtection.map((student, i) => ({ ...student, num: i + 1 }));
-    const result = { chairman: state.chairman, secretary: state.secretary };
-    GenerateDocumentProtected({ date, documentValue, result, allStudents });
-  };
-
-  const handleDeleteFromProtection = (data) => {
-    const result = protectionStudents.filter((item) => data.numberStudCard !== item.numberStudCard);
-    setArrProtection(result);
-    localStorage.setItem('protection', JSON.stringify([...new Set(result)]));
-  };
-
-  const handleDateChange = (date) => setSelectedDate(date);
-
-  const rows = [
-    ...arrProtection?.map(i => createData(
-      i.numberStudCard, i.fullNameStudent, i.formEducation, i.distributionStatus, i.company, i.reviewer,
-      i.headOfDiploma, i.diplomaConsultants, i.themeDiplom))
-  ];
-
-  const renderUploadButton = () => {
-    return (
-      <Button
-        onChange={handleDocumentValue}
-        variant="contained"
-        color={colorButtonUpload}
-        component="label"
-        style={{ margin: '20px 0 0 80px', padding: '10px 12px' }}
-      >
-        {fileName}
-        <input
-          required
-          type="file"
-          style={{ display: "none" }}
-        />
-      </Button>
-    );
-  };
-
-  const classes = useStyles();
+function Copyright() {
   return (
-    <div className="ProtectedList">
-      <div className='DatePicker'>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              margin="normal"
-              id="date-picker-dialog"
-              label="Click for choose date"
-              format="dd.MM.yyyy"
-              value={selectedDate}
-              onChange={handleDateChange}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-            />
-        </MuiPickersUtilsProvider>
-        <Grid item xs={12} sm={6}>
-          {!documentInputName && renderUploadButton('0')}
-          {documentInputName && (
-            <Button
-              onClick={handleGenerateDocument}
-              variant="contained"
-              color="primary"
-              style={{ margin: '20px 0 0 80px', padding: '10px 12px' }}
-            >
-              Download
-            </Button>
-          )}
-        </Grid>
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Diploma design
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
+const SignUp = () => {
+  const classes = useStyles();
+
+  const [data, setData] = useState({email: '', password: ''});
+  const handleChange = (e) => {
+    const fieldName = e.target.name;
+    const fieldValue = e.target.value;
+    if (fieldName === 'email') setData(state => ({...state, [fieldName]: fieldValue}));
+    if (fieldName === 'password') setData(state => ({...state, [fieldName]: fieldValue}));
+  };
+
+  const handleSignUp = () => {
+    if (data.password && data.email) {
+      localStorage.setItem(`${data.email}`, `${data.password}`)
+      window.location.href = '/'
+    }
+  };
+
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
+        <form className={classes.form} noValidate>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="lname"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                onChange={handleChange}
+                value={data.email}
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                onChange={handleChange}
+                value={data.password}
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+            </Grid>
+          </Grid>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handleSignUp}
+          >
+            Sign Up
+          </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link href="/" variant="body2">
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
       </div>
-      <div className='ProtectedTable'>
-        {arrProtection?.length && (
-          <TableContainer key={arrProtection} style={{ marginTop: '-145px' }} component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell style={{ width: '1px' }}>Delete</StyledTableCell>
-                  <StyledTableCell style={{ width: '120px' }}>Number Card</StyledTableCell>
-                  <StyledTableCell style={{ width: '270px' }} align="left">Full name of Students</StyledTableCell>
-                  <StyledTableCell style={{ width: '140px' }} align="left">Form education</StyledTableCell>
-                  <StyledTableCell style={{ width: '150px' }} align="left">Distribution status</StyledTableCell>
-                  <StyledTableCell style={{ width: '170px' }} align="left">Reviewer</StyledTableCell>
-                  <StyledTableCell  align="left">Company</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.numberStudCard}>
-                    <TableCell>
-                      <ClearIcon
-                        onClick={() => handleDeleteFromProtection(row)}
-                        className="ClearIcon"
-                      />
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {row.numberStudCard}
-                    </TableCell>
-                    <TableCell onClick={() => handleToProtocol(row)} align="left">
-                      <a
-                        className="FullName"
-                        href="/protocol"
-                      >
-                        {row.fullNameStudent}
-                      </a>
-                    </TableCell>
-                    <TableCell align="left">{row.formEducation}</TableCell>
-                    <TableCell align="left">{row.distributionStatus}</TableCell>
-                    <TableCell align="left">{row.reviewer}</TableCell>
-                    <TableCell align="left">{row.company}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-      </div>
-    </div>
+      <Box mt={5}>
+        <Copyright />
+      </Box>
+    </Container>
   );
 };
 
-export default Students;
+export default SignUp;
