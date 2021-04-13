@@ -8,8 +8,6 @@ body {
 }
 
 .DatePicker {
-  position: absolute;
-  margin-top: -100px;
   display: flex;
   width: 90%;
 }
