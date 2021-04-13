@@ -8,9 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear';
-import TextField from "@material-ui/core/TextField/TextField";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -35,14 +33,15 @@ const useStyles = makeStyles({
   },
 });
 
-const Students = (props) => {
-  const { initials, createData, handleToProtocol, state, state: { num } } = props;
-  const protectionStudents = JSON.parse(localStorage.getItem('protection'));
+const ProtectedList = (props) => {
+  const { createData, handleToProtocol, state } = props;
+  const protectionStudents = JSON.parse(localStorage.getItem('protection')) || [];
   const [arrProtection, setArrProtection] = useState(protectionStudents);
+  const shouldShowProtection = !!arrProtection.length ? true : false;
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [documentInputName, setDocumentInputName] = useState('');
   const [documentValue, setDocumentValue] = useState('');
-  const fileName = `Upload file, count of students: ${arrProtection?.length}`;
+  const fileName = shouldShowProtection ? `Upload file, count of students: ${arrProtection?.length}` : 'Add students for Protected List';
   const colorButtonUpload = documentInputName ? 'primary' :  'default';
   const dd = ('0' + selectedDate.getDate()).slice(-2);
   const mm = ('0' + (selectedDate.getMonth() + 1)).slice(-2);
@@ -76,6 +75,7 @@ const Students = (props) => {
   const renderUploadButton = () => {
     return (
       <Button
+        disabled={!shouldShowProtection}
         onChange={handleDocumentValue}
         variant="contained"
         color={colorButtonUpload}
@@ -124,8 +124,8 @@ const Students = (props) => {
         </Grid>
       </div>
       <div className='ProtectedTable'>
-        {arrProtection?.length && (
-          <TableContainer key={arrProtection} style={{ marginTop: '-145px' }} component={Paper}>
+        {shouldShowProtection && (
+          <TableContainer key={arrProtection} style={{ marginTop: '-230px' }} component={Paper}>
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -173,4 +173,4 @@ const Students = (props) => {
   );
 };
 
-export default Students;
+export default ProtectedList;
